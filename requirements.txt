@@ -1,2 +1,4 @@
 flask
-pytube
+yt-dlp
+requests
+gunicorn
