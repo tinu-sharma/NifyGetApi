@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Downloader</title>
+</head>
+<body>
+    <h2>Paste Video Link</h2>
+    <input type="text" id="videoUrl" placeholder="Enter video link">
+    <button onclick="getDownloadLink()">Download</button>
+    <p id="result"></p>
+
+    <script>
+    function getDownloadLink() {
+        let url = document.getElementById("videoUrl").value;
+        
+        fetch(`https://your-api-url.com/download?url=${encodeURIComponent(url)}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.download_url) {
+                document.getElementById("result").innerHTML = `<a href="${data.download_url}" download>Download Now</a>`;
+            } else {
+                document.getElementById("result").innerText = "Error: " + data.error;
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+    </script>
+</body>
+</html>
