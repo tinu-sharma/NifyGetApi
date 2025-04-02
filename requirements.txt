@@ -1,12 +1,12 @@
 flask==2.1.2
-pytube
-yt-dlp
-requests
-instaloader
-facebook-scraper
+pytube==15.0.0
+yt-dlp==2023.5.31
+requests==2.32.3
+instaloader==4.14.1
+facebook-scraper==0.2.0
 gunicorn==20.1.0
-lxml_html_clean
+lxml-html-clean==0.4.1
 youtube-dl==2021.12.17
 Werkzeug==2.0.3
-some_video_downloader_library
+
 
