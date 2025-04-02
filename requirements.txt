@@ -1,6 +1,6 @@
 flask==2.1.2
 pytube==15.0.0
-yt-dlp==2023.5.31
+yt-dlp
 requests==2.32.3
 instaloader==4.14.1
 facebook-scraper==0.2.0
