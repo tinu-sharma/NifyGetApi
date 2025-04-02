@@ -17,7 +17,18 @@ def download():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+import os
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Hello, Render! Your app is working."
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
+    
     
   
