@@ -2,4 +2,6 @@ flask
 pytube
 yt-dlp
 requests
+instaloader
+facebook-scraper
 gunicorn
