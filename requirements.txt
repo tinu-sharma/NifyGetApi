@@ -1,8 +1,9 @@
-flask
+flask==2.1.2
 pytube
 yt-dlp
 requests
 instaloader
 facebook-scraper
-gunicorn
+gunicorn==20.1.0
 lxml_html_clean
+yotube-di==2021.12.17
