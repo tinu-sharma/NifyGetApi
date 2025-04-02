@@ -32,6 +32,26 @@ def download_facebook(url):
         return "No video found."
     except Exception as e:
         return str(e)
+from flask import Flask, request, jsonify
+import some_video_downloader_library  # अपने वीडियो डाउनलोड लाइब्रेरी का नाम डालें
+
+app = Flask(__name__)
+
+@app.route('/download', methods=['POST'])
+def download_video():
+    url = request.form.get('videoUrl')
+    if not url:
+        return jsonify({"error": "No URL provided"}), 400
+    
+    try:
+        download_link = some_video_downloader_library.get_download_link(url)
+        return jsonify({"download_link": download_link}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
 
 @app.route('/download', methods=['POST'])
 def download():
