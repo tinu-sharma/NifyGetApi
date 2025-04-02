@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Video Downloader</title>
+    <title>NIFY DOWNLOADER</title>
     <script>
+       <form action="/download" method="post">
+    <label for="videoUrl">Enter Video URL:</label>
+    <input type="text" id="videoUrl" name="videoUrl" placeholder="Paste your link here" required>
+    <button type="submit">Download</button>
+</form>
+           
         async function getDownloadLink() {
             const url = document.getElementById("url").value;
             const response = await fetch("/download", {
