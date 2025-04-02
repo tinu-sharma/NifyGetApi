@@ -7,4 +7,5 @@ facebook-scraper
 gunicorn==20.1.0
 lxml_html_clean
 youtube-dl==2021.12.17
+Werkzeug==2.0.3
 
