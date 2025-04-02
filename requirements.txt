@@ -5,3 +5,4 @@ requests
 instaloader
 facebook-scraper
 gunicorn
+lxml_html_clean
