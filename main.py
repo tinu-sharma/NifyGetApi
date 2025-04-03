@@ -35,6 +35,23 @@ def download_facebook(url):
 from flask import Flask, request, jsonify
 import some_video_downloader_library  # अपने वीडियो डाउनलोड लाइब्रेरी का नाम डालें
 
+      if "youtube.com" in url or "youtu.be" in url:
+            download_url = download_youtube(url)
+        elif "instagram.com" in url:
+            download_url = download_instagram(url)
+        elif "facebook.com" in url:
+            download_url = download_facebook(url)
+        else:
+            return jsonify({"error": "Unsupported URL"}), 400
+
+        return jsonify({"download_url": download_url})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
+        
 app = Flask(__name__)
 
 @app.route('/download', methods=['POST'])
@@ -58,21 +75,4 @@ def download():
     try:
         data = request.get_json()
         url = data.get("url")
-
-        if "youtube.com" in url or "youtu.be" in url:
-            download_url = download_youtube(url)
-        elif "instagram.com" in url:
-            download_url = download_instagram(url)
-        elif "facebook.com" in url:
-            download_url = download_facebook(url)
-        else:
-            return jsonify({"error": "Unsupported URL"}), 400
-
-        return jsonify({"download_url": download_url})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
         
