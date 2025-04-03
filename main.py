@@ -35,8 +35,9 @@ def download_facebook(url):
 from flask import Flask, request, jsonify
 import some_video_downloader_library  # अपने वीडियो डाउनलोड लाइब्रेरी का नाम डालें
 
-      if "youtube.com" in url or "youtu.be" in url:
-            download_url = download_youtube(url)
+      if "youtube.com" in url:
+    print("This is a YouTube URL")
+          
         elif "instagram.com" in url:
             download_url = download_instagram(url)
         elif "facebook.com" in url:
@@ -68,7 +69,6 @@ def download_video():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
 
 @app.route('/download', methods=['POST'])
 def download():
