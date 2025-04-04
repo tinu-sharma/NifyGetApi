@@ -1,3 +1,13 @@
+from flask import Flask, render_template  # सबसे पहले इम्पोर्ट्स लिखें
+
+app = Flask(__name__)  # Flask ऐप को इनिशियलाइज़ करें
+
+@app.route('/')
+def home():
+    return render_template('index.html')  # templates/index.html लोड करें
+
+if __name__ == "__main__":
+    app.run(debug=True)  # ऐप रन करें
 import os
 from flask import Flask, request, jsonify
 from pytube import YouTube
