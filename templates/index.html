@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Downloader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            width: 300px;
+        }
+        .result {
+            margin: 20px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Video Downloader</h1>
+    <input type="text" id="videoUrl" placeholder="Enter video URL">
+    <button onclick="downloadVideo()">Download</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        async function downloadVideo() {
+            const url = document.getElementById('videoUrl').value;
+            const response = await fetch('/download', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url: url })
+            });
+            const data = await response.json();
+            if (data.download_url) {
+                document.getElementById('result').innerHTML = 
+                    `<a href="${data.download_url}" target="_blank">Download Video</a>`;
+            } else {
+                document.getElementById('result').innerHTML = data.error;
+            }
+        }
+    </script>
+</body>
+</html>
