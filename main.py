@@ -19,6 +19,10 @@ def download_video():
         if not url:
             return jsonify({"error": "No URL provided"}), 400
 
+        # Handle YouTube Shorts link
+        if "youtube.com/shorts/" in url:
+            url = url.replace("youtube.com/shorts/", "youtube.com/watch?v=")
+
         if "youtube.com" in url or "youtu.be" in url:
             yt = YouTube(url)
             stream = yt.streams.get_highest_resolution()
