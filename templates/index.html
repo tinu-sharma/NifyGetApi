@@ -7,15 +7,28 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
         }
         input, button {
             margin: 10px;
             padding: 10px;
             width: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
         .result {
             margin: 20px;
             color: green;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -34,11 +47,12 @@
                 body: JSON.stringify({ url: url })
             });
             const data = await response.json();
+            const resultDiv = document.getElementById('result');
+
             if (data.download_url) {
-                document.getElementById('result').innerHTML = 
-                    `<a href="${data.download_url}" target="_blank">Download Video</a>`;
+                resultDiv.innerHTML = `<a href="${data.download_url}" target="_blank">Download Video</a>`;
             } else {
-                document.getElementById('result').innerHTML = data.error;
+                resultDiv.innerHTML = data.error || 'Something went wrong!';
             }
         }
     </script>
