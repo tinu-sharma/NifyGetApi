@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 from pytube import YouTube
 import instaloader
 from facebook_scraper import get_posts
@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('index.html')  # Make sure templates/index.html exists
+    return "Welcome to the Video Downloader API!"
 
 def download_youtube(url):
     try:
@@ -16,7 +16,7 @@ def download_youtube(url):
         stream = yt.streams.get_highest_resolution()
         return stream.url
     except Exception as e:
-        return str(e)
+        return f"YouTube Error: {str(e)}"
 
 def download_instagram(url):
     try:
@@ -25,7 +25,7 @@ def download_instagram(url):
         post = instaloader.Post.from_shortcode(loader.context, shortcode)
         return post.video_url
     except Exception as e:
-        return str(e)
+        return f"Instagram Error: {str(e)}"
 
 def download_facebook(url):
     try:
@@ -34,7 +34,7 @@ def download_facebook(url):
                 return post["video"]
         return "No video found."
     except Exception as e:
-        return str(e)
+        return f"Facebook Error: {str(e)}"
 
 @app.route('/download', methods=['POST'])
 def download_video():
@@ -61,4 +61,4 @@ def download_video():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port, debug=True)
-            
+    
