@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
+    <meta charset="UTF-8">
     <title>Video Downloader</title>
     <style>
         body {
@@ -34,8 +35,8 @@
 </head>
 <body>
     <h1>Video Downloader</h1>
-    <input type="text" id="videoUrl" placeholder="Enter video URL">
-    <button onclick="downloadVideo()">Download</button>
+    <input type="text" id="videoUrl" placeholder="वीडियो URL दर्ज करें">
+    <button onclick="downloadVideo()">डाउनलोड करें</button>
     <div class="result" id="result"></div>
 
     <script>
@@ -43,19 +44,21 @@
             const url = document.getElementById('videoUrl').value;
             const response = await fetch('/download', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({ url: url })
             });
+
             const data = await response.json();
             const resultDiv = document.getElementById('result');
 
             if (data.download_url) {
-                resultDiv.innerHTML = `<a href="${data.download_url}" target="_blank">Download Video</a>`;
+                resultDiv.innerHTML = `<a href="${data.download_url}" target="_blank">वीडियो डाउनलोड करें</a>`;
             } else {
-                resultDiv.innerHTML = data.error || 'Something went wrong!';
+                resultDiv.innerHTML = data.error || 'कुछ गड़बड़ हो गई!';
             }
         }
     </script>
 </body>
 </html>
-
