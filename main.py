@@ -1,15 +1,5 @@
-from flask import Flask, render_template  # सबसे पहले इम्पोर्ट्स लिखें
-
-app = Flask(__name__)  # Flask ऐप को इनिशियलाइज़ करें
-
-@app.route('/')
-def home():
-    return render_template('index.html')  # templates/index.html लोड करें
-
-if __name__ == "__main__":
-    app.run(debug=True)  # ऐप रन करें
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from pytube import YouTube
 import instaloader
 from facebook_scraper import get_posts
@@ -18,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Welcome to Video Downloader! Send a video link to get the download link."
+    return render_template('index.html')  # Make sure templates/index.html exists
 
 def download_youtube(url):
     try:
@@ -31,7 +21,8 @@ def download_youtube(url):
 def download_instagram(url):
     try:
         loader = instaloader.Instaloader()
-        post = instaloader.Post.from_shortcode(loader.context, url.split("/")[-2])
+        shortcode = url.strip("/").split("/")[-1]
+        post = instaloader.Post.from_shortcode(loader.context, shortcode)
         return post.video_url
     except Exception as e:
         return str(e)
@@ -54,7 +45,7 @@ def download_video():
         if not url:
             return jsonify({"error": "No URL provided"}), 400
 
-        if "youtube.com" in url:
+        if "youtube.com" in url or "youtu.be" in url:
             download_url = download_youtube(url)
         elif "instagram.com" in url:
             download_url = download_instagram(url)
@@ -70,4 +61,4 @@ def download_video():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port, debug=True)
-    
+            
